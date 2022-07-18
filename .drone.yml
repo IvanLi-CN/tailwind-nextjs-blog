@@ -22,6 +22,7 @@ steps:
       tags:
         - '${DRONE_COMMIT_SHA:0:8}-amd64'
         - '${DRONE_BRANCH}${DRONE_TAG}-amd64'
+        
 
 ---
 kind: pipeline
