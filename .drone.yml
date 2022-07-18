@@ -1,0 +1,141 @@
+---
+kind: pipeline
+name: base
+type: docker
+
+steps:
+  - name: install
+    image: plugins/docker
+    settings:
+      registry: docker-registry.ivanli.cc
+      username:
+        from_secret: ivan-docker-username
+      password:
+        from_secret: ivan-docker-password
+      repo: docker-registry.ivanli.cc/ivan/gatsby-blog
+      cache_from:
+        - docker-registry.ivanli.cc/ivan/gatsby-blog:${DRONE_BRANCH}${DRONE_TAG}-amd64
+      dockerfile: Dockerfile
+      build_args:
+        - BUILDKIT_INLINE_CACHE=1
+      target: base
+      tags:
+        - '${DRONE_COMMIT_SHA:0:8}-amd64'
+        - '${DRONE_BRANCH}${DRONE_TAG}-amd64'
+
+---
+kind: pipeline
+name: linux-amd64
+type: docker
+depends_on:
+  - base
+
+steps:
+  - name: build&publish
+    image: plugins/docker
+    settings:
+      registry: docker-registry.ivanli.cc
+      username:
+        from_secret: ivan-docker-username
+      password:
+        from_secret: ivan-docker-password
+      repo: docker-registry.ivanli.cc/ivan/gatsby-blog
+      dockerfile: Dockerfile
+      target: release
+      cache_from:
+        - docker-registry.ivanli.cc/ivan/gatsby-blog:${DRONE_COMMIT_SHA:0:8}-amd64
+      tags:
+        - '${DRONE_COMMIT_SHA:0:8}'
+        - '${DRONE_BRANCH}${DRONE_TAG}'
+  - name: notify
+    image: appleboy/drone-telegram
+    failure: ignore
+    when:
+      status:
+        - success
+        - failure
+    environment:
+      PLUGIN_TOKEN:
+        from_secret: drone-telegram-bot-token
+      PLUGIN_TO:
+        from_secret: telegram-notify-to
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 {{ build.link }}
+        {{else}}
+        ❌ Build #{{build.number}} of `{{repo.name}}` failed.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 {{ build.link }}
+        {{/success}}
+
+trigger:
+  branch:
+    - master
+    - main
+    - develop
+
+---
+kind: pipeline
+type: docker
+name: deploy
+clone:
+  disable: true
+depends_on:
+  - linux-amd64
+
+steps:
+  - name: deploy
+    image: plugins/webhook
+    settings:
+      token_value:
+        from_secret: watchtower-webhook-token
+      token_type: Bearer
+      urls: https://watchtower.ivanli.cc/v1/update
+      content_type: application/json
+      template: |
+        {
+          "owner": "{{ repo.owner }}",
+          "repo": "{{ repo.name }}",
+          "status": "{{ build.status }}",
+        }
+
+  - name: notify
+    image: appleboy/drone-telegram
+    when:
+      status:
+        - success
+        - failure
+    failure: ignore
+    environment:
+      PLUGIN_TOKEN:
+        from_secret: drone-telegram-bot-token
+      PLUGIN_TO:
+        from_secret: telegram-notify-to
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Deploy #{{build.number}} of `{{repo.name}}` succeeded.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 {{ build.link }}
+        {{else}}
+        ❌ Deploy #{{build.number}} of `{{repo.name}}` failed.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 {{ build.link }}
+        {{/success}}

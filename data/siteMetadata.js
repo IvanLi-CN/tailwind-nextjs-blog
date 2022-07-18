@@ -1,22 +1,25 @@
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: 'TailwindBlog',
-  description: 'A blog created with Next.js and Tailwind.css',
-  language: 'en-us',
+  title: 'Ivan‘s Blog',
+  author: 'Ivan Li',
+  headerTitle: 'Ivan‘s Blog',
+  description:
+    '一个 Web 全栈开发者、嵌入式开发爱好者，与你分享我的工作和生活。专注 React、Node.js、Rust，热爱 Self-Hosted、IoT、硬件。',
+  language: 'zh-CN',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
-  siteLogo: '/static/images/logo.png',
-  image: '/static/images/avatar.png',
+  siteUrl: 'https://ivanli.cc/',
+  siteRepo: 'https://git.ivanli.cc/ivan/taliwind-nextjs-blog',
+  siteLogo:
+    'https://pan.ivanli.cc/api/v3/file/source/1234/%E5%A4%B4%E5%83%8F.png?sign=xIgy54DyFRYupxjZJbK02HmpKX8C53YR-O0I18Rxm70%3D%3A0',
+  image:
+    'https://pan.ivanli.cc/api/v3/file/source/1234/%E5%A4%B4%E5%83%8F.png?sign=xIgy54DyFRYupxjZJbK02HmpKX8C53YR-O0I18Rxm70%3D%3A0',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'address@yoursite.com',
-  github: 'https://github.com',
-  twitter: 'https://twitter.com/Twitter',
-  facebook: 'https://facebook.com',
-  youtube: 'https://youtube.com',
-  linkedin: 'https://www.linkedin.com',
-  locale: 'en-US',
+  email: 'master@ivanli.cc',
+  github: 'https://github.com/IvanLi-CN',
+  // twitter: 'https://twitter.com/Twitter',
+  // facebook: 'https://facebook.com',
+  // youtube: 'https://youtube.com',
+  // linkedin: 'https://www.linkedin.com',
+  locale: 'zh-CN',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
