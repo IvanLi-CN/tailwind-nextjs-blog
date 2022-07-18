@@ -1,4 +1,5 @@
 FROM node:16-alpine as base
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package-lock.json package.json ./
 RUN npm ci --no-audit
