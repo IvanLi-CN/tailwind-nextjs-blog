@@ -12,9 +12,9 @@ steps:
         from_secret: ivan-docker-username
       password:
         from_secret: ivan-docker-password
-      repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog
+      repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-base
       cache_from:
-        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog:${DRONE_BRANCH}${DRONE_TAG}-amd64
+        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-base:${DRONE_BRANCH}${DRONE_TAG}-amd64
       dockerfile: Dockerfile
       build_args:
         - BUILDKIT_INLINE_CACHE=1
