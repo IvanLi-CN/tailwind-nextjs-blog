@@ -16,8 +16,6 @@ steps:
       cache_from:
         - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-base:${DRONE_BRANCH}${DRONE_TAG}-amd64
       dockerfile: Dockerfile
-      build_args:
-        - BUILDKIT_INLINE_CACHE=1
       target: base
       tags:
         - '${DRONE_COMMIT_SHA:0:8}-amd64'
