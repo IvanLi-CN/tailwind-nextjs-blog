@@ -7,7 +7,7 @@ const siteMetadata = {
   language: 'zh-CN',
   theme: 'system', // system, dark or light
   siteUrl: 'https://ivanli.cc/',
-  siteRepo: 'https://git.ivanli.cc/ivan/taliwind-nextjs-blog',
+  siteRepo: 'https://git.ivanli.cc/ivan/tailwind-nextjs-blog',
   siteLogo:
     'https://pan.ivanli.cc/api/v3/file/source/1234/%E5%A4%B4%E5%83%8F.png?sign=xIgy54DyFRYupxjZJbK02HmpKX8C53YR-O0I18Rxm70%3D%3A0',
   image:
