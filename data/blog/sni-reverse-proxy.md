@@ -1,14 +1,14 @@
 ---
 title: 利用 SNI 路由 TLS 连接实现端口复用
 date: '2022-09-08'
-tags: ['SNI', 'TLS', 'Reverse Proxy', '反向代理']
-draft: true
+tags: ['SNI', 'TLS', 'Reverse Proxy', '反向代理', 'Caddy', 'Xray', 'Vless']
+draft: false
 summary: 通过 SNI 反向代理，实现 VLESS 与 Web 站点共享 443 端口。
 ---
 
 ## 前言
 
-这次的目标是通过 TLS 的 SNI 来实现对 TLS 连接的路由，以实现 SD LAN 中的 VLESS 连接与 HTTPS 连接复用 443 端口。
+这次的目标是通过 TLS 的 SNI 来实现对 TLS 连接的路由，以实现 SD-LAN 中的 VLESS 连接与 HTTPS 连接复用 443 端口。
 如此一来，我在外访问家庭网络内的非 Web 服务时，能够很轻松地通过防火墙，因为 443 端口作为 HTTPS 默认端口，并且通过 VLESS 隧道访问的流量特征与 HTTPS 流量特征相同，有效避免被误杀。
 
 ### 试错
@@ -42,3 +42,18 @@ Xray 的 VLESS 协议支持[回落](https://xtls.github.io/Xray-docs-next/docume
 ### VLESS
 
 VLESS 是一种安全高效的数据传输协议，其支持的 xTLS 协议非常适合作为网络隧道传递 TLS 数据，能够极大地降低网关计算资源。
+
+### Caddy
+
+一款现代的 HTTP 反向代理程序。
+
+## 部署步骤
+
+使用 Docker Compose 部署。
+
+部署步骤以后和其他内容一起，整理成一套方案后再一起分享，这里就先略过，以下是用到的容器：
+
+- [caddy - Official Image | Docker Hub](https://registry.hub.docker.com/_/caddy)
+- [tommylau/sniproxy - Docker Image | Docker Hub](https://registry.hub.docker.com/r/tommylau/sniproxy)
+- [neilpang/acme.sh - Docker Image | Docker Hub](https://registry.hub.docker.com/r/neilpang/acme.sh)
+- [gists/xray - Docker Image | Docker Hub](https://registry.hub.docker.com/r/gists/xray)
