@@ -1,3 +1,12 @@
 {
-  "cSpell.words": ["alpn", "blackhole", "dokodemo", "fullchain", "outbounds", "rprx", "xtls"]
+  "cSpell.words": [
+    "alpn",
+    "blackhole",
+    "dokodemo",
+    "fullchain",
+    "outbounds",
+    "rprx",
+    "VLESS",
+    "xtls"
+  ]
 }
