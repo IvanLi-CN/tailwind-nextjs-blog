@@ -7,17 +7,43 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import Comments from '@/components/comments'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import { useMemo } from 'react'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/raw/master/data/blog/${fileName}`
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
     `${siteMetadata.siteUrl}/blog/${slug}`
   )}`
+const Copyright = () => (
+  <a
+    rel="license"
+    href="http://creativecommons.org/licenses/by-sa/4.0/"
+    className="inline-flex self-center"
+  >
+    <Image
+      className="border-0"
+      alt="知识共享许可协议"
+      width="88"
+      height="15"
+      src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
+    />
+  </a>
+)
 
 const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
   const { slug, fileName, date, title, images, tags } = frontMatter
+
+  const headerStyles = useMemo(
+    () =>
+      images?.[0]
+        ? {
+            backgroundImage: `url(${images[0]})`,
+          }
+        : {},
+    [images]
+  )
 
   return (
     <SectionContainer>
@@ -29,8 +55,18 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
       <ScrollTopAndComment />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
-            <div className="space-y-1 text-center">
+          <header className="relative h-48 pt-6 xl:pb-6">
+            {images?.[0] && (
+              <Image
+                alt="background"
+                layout="fill"
+                objectFit="cover"
+                src={images[0]}
+                style={headerStyles}
+                className="blur-xs -z-10 opacity-50 bg-blend-soft-light"
+              />
+            )}
+            <div className="space-y-5 text-center">
               <dl className="space-y-10">
                 <div>
                   <dt className="sr-only">Published on</dt>
@@ -87,10 +123,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
-              <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(slug)} rel="nofollow">
-                  {'Discuss on Twitter'}
-                </Link>
+              <div className="flex items-center pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
+                <Copyright />
                 {` • `}
                 <Link href={editUrl(fileName)}>{'View source'}</Link>
               </div>

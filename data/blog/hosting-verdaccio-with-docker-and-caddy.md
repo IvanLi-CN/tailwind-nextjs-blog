@@ -4,6 +4,10 @@ date: '2022-09-23'
 tags: ['Verdaccio', 'Self-Hosted', 'Docker', 'Caddy', 'registry', 'Node.js']
 draft: false
 summary: 作为靠着 JavaScript 生态吃饭的 Web 开发者，自建一个 Node regsitry 是很有必要的，我这次继续选择 Verdaccio 来搭建存储库。这次使用 Docker Compose 部署 Verdaccio，并将 Caddy 用于反向代理该服务。
+images:
+  [
+    'https://pan.ivanli.cc/api/v3/file/source/2233/verdaccio.png?sign=qpoeADXzbhHk2MY5CehgTftUJ67pnUj-Ylko9D5jscU%3D%3A0',
+  ]
 ---
 
 ## 为何自建存储库？
@@ -19,12 +23,14 @@ summary: 作为靠着 JavaScript 生态吃饭的 Web 开发者，自建一个 No
 ## 如何自建存储库
 
 已有环境：
-  - Docker, Docker Compose
-  - Caddy (in Docker)
-    - 网络：`caddy`
+
+- Docker, Docker Compose
+- Caddy (in Docker)
+  - 网络：`caddy`
 
 新增：
-  - Verdaccio
+
+- Verdaccio
 
 接下来使用 Docker Compose 部署 Verdaccio，并将其加入到 `caddy` 网络中，之后配置 Caddy，使其反向代理 Verdaccio。
 
@@ -33,7 +39,7 @@ summary: 作为靠着 JavaScript 生态吃饭的 Web 开发者，自建一个 No
 创建文件 `docker-compose.yml`：
 
 ```yml {9,16-17} showLineNumbers
-version: "3,16-17"
+version: '3'
 
 networks:
   caddy:
@@ -48,8 +54,8 @@ services:
       - caddy
     expose:
       - 4873
-#   environment:
-#     VERDACCIO_PUBLIC_URL: "https://node-registry.ivanli.cc"
+    #   environment:
+    #     VERDACCIO_PUBLIC_URL: "https://node-registry.ivanli.cc"
     volumes:
       - ./verdaccio:/verdaccio/conf
       - verdaccio-storage-data:/verdaccio/storage
@@ -60,7 +66,7 @@ volumes:
   verdaccio-plugins-data:
 ```
 
-上面第 9 行可以看到，我现在（2022年09月22日）是使用不是正式版本，因为当前的正式版有个缺陷，就是无法正确读取到反向代理提供的 `X-Forwarded-Proto`，这有可能导致访问问题。如果使用正式版本，需要加上第 17 行的环境变量。
+上面第 9 行可以看到，我现在（2022 年 09 月 22 日）是使用不是正式版本，因为当前的正式版有个缺陷，就是无法正确读取到反向代理提供的 `X-Forwarded-Proto`，这有可能导致访问问题。如果使用正式版本，需要加上第 17 行的环境变量。
 
 **不要启动 compose**，因为你还没有配置文件。当然启动了也没关系，无伤大雅。
 
@@ -68,6 +74,7 @@ volumes:
 
 因为前面将配置文件目录 `verdaccio/conf` 设为了 `verdaccio`，所以：
 创建配置文件 `verdaccio/config.yaml`：
+
 ```zsh {1,2} showLineNumbers
 storage: /verdaccio/storage
 plugins: /verdaccio/plugins
@@ -107,6 +114,7 @@ web:
 因为我们使用了 `bcrypt` 算法保存密码，所以可以借助 [Bcrypt-Generator.com](https://bcrypt-generator.com/) 生成保存的密码。
 
 创建文件：`verdaccio/htpasswd`:
+
 ```htpasswd
 admin:$2a$12$9xxxxxxxxxxxxxxlO.slh2k2
 ```

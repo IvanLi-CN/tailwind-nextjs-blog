@@ -17,12 +17,32 @@
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["dbaeumer.vscode-eslint"]
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "formulahendry.auto-rename-tag",
+        "aaron-bond.better-comments",
+        "bierner.color-info",
+        "ldez.ignore-files",
+        "gooooloo.smartquote",
+        "wmaurer.change-case",
+        "streetsidesoftware.code-spell-checker",
+        "naumovs.color-highlight",
+        "EditorConfig.EditorConfig",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "ecmel.vscode-html-css",
+        "yzhang.markdown-all-in-one",
+        "christian-kohler.path-intellisense",
+        "esbenp.prettier-vscode",
+        "shardulm94.trailing-spaces",
+        "lihui.vs-color-picker",
+        "bradlc.vscode-tailwindcss"
+      ]
     }
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
+  "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "yarn install",
@@ -35,5 +55,6 @@
   },
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
-  ]
+  ],
+  "postStartCommand": "npm ci && npm run dev"
 }

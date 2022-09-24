@@ -59,7 +59,7 @@ module.exports = withBundleAnalyzer({
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
   images: {
-    domains: ['pan.ivanli.cc'],
+    domains: ['pan.ivanli.cc', 'i.creativecommons.org'],
   },
   async headers() {
     return [
