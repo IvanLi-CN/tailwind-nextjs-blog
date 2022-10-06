@@ -51,9 +51,11 @@ VLESS 是一种安全高效的数据传输协议，其支持的 xTLS 协议非�
 
 使用 Docker Compose 部署。
 
-部署步骤以后和其他内容一起，整理成一套方案后再一起分享，这里就先略过，以下是用到的容器：
+以下是用到的容器：
 
 - [caddy - Official Image | Docker Hub](https://registry.hub.docker.com/_/caddy)
 - [tommylau/sniproxy - Docker Image | Docker Hub](https://registry.hub.docker.com/r/tommylau/sniproxy)
 - [neilpang/acme.sh - Docker Image | Docker Hub](https://registry.hub.docker.com/r/neilpang/acme.sh)
 - [gists/xray - Docker Image | Docker Hub](https://registry.hub.docker.com/r/gists/xray)
+
+部署方式：[利用一台小鸡实现网络自由](./network-freedom-with-vps)
