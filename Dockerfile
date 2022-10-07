@@ -9,6 +9,6 @@ FROM node:16-alpine as release
 WORKDIR /app
 COPY --from=base /app ./
 RUN npm run build &&\
-  npm prune --omit dev
+  npm prune --omit dev --legacy-peer-deps
 EXPOSE 80
 CMD npm run serve -- --port 80
