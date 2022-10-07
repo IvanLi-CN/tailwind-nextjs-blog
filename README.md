@@ -3,6 +3,7 @@
 # Ivan Li's Blog
 
 [![Build Status](https://ci.ivanli.cc/api/badges/Ivan/tailwind-nextjs-blog/status.svg)](https://ci.ivanli.cc/Ivan/tailwind-nextjs-blog)
+[![Website Status](https://uptime.sg.ivanli.cc/api/badge/18/uptime/720?label=30&labelSuffix=d)](https://ivanli.cc)
 
 This is a [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) blogging starter template. Probably the most feature-rich Next.js markdown blogging template out there. Comes out of the box configured with the latest technologies to make technical writing a breeze. Easily configurable and customizable. Perfect as a replacement to existing Jekyll and Hugo individual blogs.
 
