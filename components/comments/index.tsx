@@ -1,3 +1,5 @@
+import React from 'react'
+
 import siteMetadata from '@/data/siteMetadata'
 import dynamic from 'next/dynamic'
 import { PostFrontMatter } from 'types/PostFrontMatter'
@@ -21,6 +23,12 @@ const GiscusComponent = dynamic(
 const DisqusComponent = dynamic(
   () => {
     return import('@/components/comments/Disqus')
+  },
+  { ssr: false }
+)
+const CusdisComponent = dynamic(
+  () => {
+    return import('@/components/comments/Cusdis')
   },
   { ssr: false }
 )
@@ -51,6 +59,9 @@ const Comments = ({ frontMatter }: Props) => {
       )}
       {siteMetadata.comment && siteMetadata.comment.provider === 'disqus' && (
         <DisqusComponent frontMatter={frontMatter} />
+      )}
+      {siteMetadata.comment && siteMetadata.comment.provider === 'cusdis' && (
+        <CusdisComponent frontMatter={frontMatter} />
       )}
     </div>
   )
