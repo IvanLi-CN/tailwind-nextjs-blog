@@ -40,7 +40,7 @@ const siteMetadata = {
     // content security policy in the `next.config.js` file.
     // Select a provider and use the environment variables associated to it
     // https://vercel.com/docs/environment-variables
-    provider: 'cusdis', // supported providers: giscus, utterances, disqus
+    provider: 'commento', // supported providers: giscus, utterances, disqus
     giscusConfig: {
       // Visit the link below, and follow the steps in the 'configuration' section
       // https://giscus.app/
@@ -81,6 +81,9 @@ const siteMetadata = {
     cusdisConfig: {
       appId: process.env.NEXT_PUBLIC_CUSDIS_APPID,
       host: process.env.NEXT_PUBLIC_CUSDIS_HOST,
+    },
+    commentoConfig: {
+      url: process.env.NEXT_PUBLIC_COMMENTO_URL,
     },
   },
 }

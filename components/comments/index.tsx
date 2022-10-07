@@ -32,6 +32,12 @@ const CusdisComponent = dynamic(
   },
   { ssr: false }
 )
+const CommentoComponent = dynamic(
+  () => {
+    return import('@/components/comments/Commento')
+  },
+  { ssr: false }
+)
 
 const Comments = ({ frontMatter }: Props) => {
   let term
@@ -62,6 +68,9 @@ const Comments = ({ frontMatter }: Props) => {
       )}
       {siteMetadata.comment && siteMetadata.comment.provider === 'cusdis' && (
         <CusdisComponent frontMatter={frontMatter} />
+      )}
+      {siteMetadata.comment && siteMetadata.comment.provider === 'commento' && (
+        <CommentoComponent frontMatter={frontMatter} />
       )}
     </div>
   )
