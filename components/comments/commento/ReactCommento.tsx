@@ -15,7 +15,6 @@ const insertScript = (
   script.async = true
   script.src = src
   script.id = id
-  console.log(document.getElementById(id))
   if (document.getElementById(id)) {
     return
   }
@@ -52,7 +51,6 @@ const ReactCommento = ({
 }) => {
   const containerId = useMemo(() => `commento-${Math.random().toString().slice(2, 8)}`, [])
   const container = createRef<HTMLDivElement>()
-  const initializing = useRef(false)
 
   useLayoutEffect(() => {
     if (!window) {
