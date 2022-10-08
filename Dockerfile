@@ -3,12 +3,11 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY pnpm-lock.yaml package.json ./
 RUN npm i --location=global pnpm@7 &&\
-  pnpm i &&\
-  pnpm build
-COPY . .
+  pnpm i
 
 FROM node:16-alpine as release
 WORKDIR /app
+COPY . .
 COPY --from=base /app ./
 RUN pnpm build &&\
   pnpm prune --prod
