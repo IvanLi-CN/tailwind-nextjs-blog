@@ -1,5 +1,4 @@
-import { Parent } from 'unist'
-import { visit } from 'unist-util-visit'
+import { visit, Parent } from 'unist-util-visit'
 
 export default function remarkCodeTitles() {
   return (tree: Parent & { lang?: string }) =>
