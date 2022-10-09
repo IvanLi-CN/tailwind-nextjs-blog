@@ -2,8 +2,6 @@
 kind: pipeline
 name: linux-amd64
 type: docker
-depends_on:
-  - base
 
 steps:
   - name: build&publish
