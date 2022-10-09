@@ -12,4 +12,4 @@ FROM node:16-alpine as release
 WORKDIR /app
 COPY --from=base /app ./
 EXPOSE 80
-CMD npm run serve -p 80
+CMD npm run serve -- -p 80
