@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: base
+name: deps
 type: docker
 
 steps:
@@ -12,11 +12,11 @@ steps:
         from_secret: ivan-docker-username
       password:
         from_secret: ivan-docker-password
-      repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-base
+      repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps
       cache_from:
-        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-base:${DRONE_BRANCH}${DRONE_TAG}-amd64
+        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64
       dockerfile: Dockerfile
-      target: base
+      target: deps
       tags:
         - '${DRONE_COMMIT_SHA:0:8}-amd64'
         - '${DRONE_BRANCH}${DRONE_TAG}-amd64'
@@ -57,7 +57,7 @@ kind: pipeline
 name: linux-amd64
 type: docker
 depends_on:
-  - base
+  - deps
 
 steps:
   - name: build&publish
@@ -72,8 +72,7 @@ steps:
       dockerfile: Dockerfile
       target: release
       cache_from:
-        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-base:${DRONE_BRANCH}${DRONE_TAG}-amd64
-        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog:${DRONE_BRANCH}${DRONE_TAG}-amd64
+        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64
       tags:
         - '${DRONE_COMMIT_SHA:0:8}'
         - '${DRONE_BRANCH}${DRONE_TAG}'
