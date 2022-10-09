@@ -6,7 +6,7 @@ RUN npm i --location=global pnpm@7 &&\
   pnpm i
 COPY . .
 RUN pnpm build &&\
-  pnpm prune --prod
+  pnpm prune --prod --config.ignore-scripts=true
 
 FROM node:16-alpine as release
 WORKDIR /app
