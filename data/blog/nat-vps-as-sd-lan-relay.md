@@ -1,14 +1,14 @@
 ---
-title: 使用 NAT VPS 作为 SD-LAN 中继
+title: 使用 NAT VPS 作为 SD-WAN 中继
 date: '2022-10-13'
 tags: ['ZeroTier', 'TailScale', ‘SD-WAN’, 'NAT', 'VPS', 'FRP', 'Self-Hosted']
 draft: false
-summary: ZeroTier 和 TailScale 是我目前正在同时使用的 SD-LAN 组网工具。这次购入了一台 NAT VPS，准备用它中继 ZeroTier 和 TailScale。
+summary: ZeroTier 和 TailScale 是我目前正在同时使用的 SD-WAN 组网工具。这次购入了一台 NAT VPS，准备用它中继 ZeroTier 和 TailScale。
 ---
 
 ## 诉苦
 
-由于工作需要，我已经好几个月使用 SD-WAN 在公司和宿舍组建了 SD-WAN，可是国内网络环境实在是不友好，公司网络质量也差，我忍受了很久的随机掉线的问题，近两个月我改用手机热点避免了这个问题，但是只能在开发后端时使用，如果开发前端或者是对生产环境进行部署与验证时，访问线上环境需要几百兆流量，我吃不消哇，频繁切换 Wi-Fi 接入点也不是个令人愉快的事。但天无绝人之路，我兜兜转转购入了一台香港的 NAT VPS，规划用于中继 SD-LAN。
+由于工作需要，我已经好几个月使用 SD-WAN 在公司和宿舍组建了 SD-WAN，可是国内网络环境实在是不友好，公司网络质量也差，我忍受了很久的随机掉线的问题，近两个月我改用手机热点避免了这个问题，但是只能在开发后端时使用，如果开发前端或者是对生产环境进行部署与验证时，访问线上环境需要几百兆流量，我吃不消哇，频繁切换 Wi-Fi 接入点也不是个令人愉快的事。但天无绝人之路，我兜兜转转购入了一台香港的 NAT VPS，规划用于中继 SD-WAN。
 
 ## 方案
 
@@ -55,35 +55,37 @@ sudo zerotier-idtool initmoon identity.public | sudo tee -a  moon.json
 
 输出示例：
 
-````json
+```json
 {
- "id": "9axxxxxx12",
- "objtype": "world",
- "roots": [
-  {
-   "identity": "9axxxxxx12:0:258xxxxxx38b34a2fa88b46d290137a6ecb3a185dacdaee957c30e33f1977ca7e",
-   "stableEndpoints": []
-  }
- ],
- "signingKey": "df18369fxxxxxx70036a356c",
- "signingKey_SECRET": "b1524155faa6f779b8xxxxxxf811f711fed",
- "updatesMustBeSignedBy": "df18369f3b54xxxxxx036a356c",
- "worldType": "moon"
+  "id": "9axxxxxx12",
+  "objtype": "world",
+  "roots": [
+    {
+      "identity": "9axxxxxx12:0:258xxxxxx38b34a2fa88b46d290137a6ecb3a185dacdaee957c30e33f1977ca7e",
+      "stableEndpoints": []
+    }
+  ],
+  "signingKey": "df18369fxxxxxx70036a356c",
+  "signingKey_SECRET": "b1524155faa6f779b8xxxxxxf811f711fed",
+  "updatesMustBeSignedBy": "df18369f3b54xxxxxx036a356c",
+  "worldType": "moon"
 }
+```
 
 向 `"stableEndpoints": []` 中添加 `"<server_ip>/<server_nat_port>"`，其中 `server_ip` 是你的公网地址，`server_nat_port` 是 NAT 后的外网端口。示例如下：
+
 ```json
 {
   //...
   "roots": [
-  {
-    "identity": "9axxxxxx12:0:258xxxxxx38b34a2fa88b46d290137a6ecb3a185dacdaee957c30e33f1977ca7e",
-    "stableEndpoints": ["1.2.3.4/19993"]
+    {
+      "identity": "9axxxxxx12:0:258xxxxxx38b34a2fa88b46d290137a6ecb3a185dacdaee957c30e33f1977ca7e",
+      "stableEndpoints": ["1.2.3.4/19993"]
     }
-  ],
+  ]
   //...
 }
-````
+```
 
 生成 `.moon` 文件：
 
