@@ -1,25 +1,32 @@
-import Link from '@/components/Link'
-import { PageSEO } from '@/components/SEO'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import { getAllFilesFrontMatter } from '@/lib/mdx'
-import formatDate from '@/lib/utils/formatDate'
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { PostFrontMatter } from 'types/PostFrontMatter'
-import NewsletterForm from '@/components/NewsletterForm'
+import Link from '@/components/Link';
+import { PageSEO } from '@/components/SEO';
+import Tag from '@/components/Tag';
+import siteMetadata from '@/data/siteMetadata';
+import { getAllFilesFrontMatter } from '@/lib/mdx';
+import formatDate from '@/lib/utils/formatDate';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { PostFrontMatter } from 'types/PostFrontMatter';
+import NewsletterForm from '@/components/NewsletterForm';
 
-const MAX_DISPLAY = 5
+const MAX_DISPLAY = 5;
 
-export const getStaticProps: GetStaticProps<{ posts: PostFrontMatter[] }> = async () => {
-  const posts = await getAllFilesFrontMatter('blog')
+export const getStaticProps: GetStaticProps<{
+  posts: PostFrontMatter[];
+}> = async () => {
+  const posts = await getAllFilesFrontMatter('blog');
 
-  return { props: { posts } }
-}
+  return { props: { posts } };
+};
 
-export default function Home({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <PageSEO
+        title={siteMetadata.title}
+        description={siteMetadata.description}
+      />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
@@ -32,7 +39,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && '没有找到文章。 😭'}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter
+            const { slug, date, title, summary, tags } = frontMatter;
             return (
               <li key={slug} className="py-12">
                 <article>
@@ -49,8 +56,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
                               href={`/blog/${slug}`}
-                              className="text-gray-900 dark:text-gray-100"
-                            >
+                              className="text-gray-900 dark:text-gray-100">
                               {title}
                             </Link>
                           </h2>
@@ -68,8 +74,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                         <Link
                           href={`/blog/${slug}`}
                           className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read "${title}"`}
-                        >
+                          aria-label={`Read "${title}"`}>
                           Read more &rarr;
                         </Link>
                       </div>
@@ -77,7 +82,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                   </div>
                 </article>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
@@ -86,8 +91,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
           <Link
             href="/blog"
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="all posts"
-          >
+            aria-label="all posts">
             All Posts &rarr;
           </Link>
         </div>
@@ -98,5 +102,5 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
         </div>
       )}
     </>
-  )
+  );
 }

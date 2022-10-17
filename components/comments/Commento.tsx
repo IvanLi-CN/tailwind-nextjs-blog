@@ -1,30 +1,33 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react';
 
-import siteMetadata from '@/data/siteMetadata'
-import { PostFrontMatter } from 'types/PostFrontMatter'
-import { useTheme } from 'next-themes'
-import ReactCommento from './commento/ReactCommento'
+import siteMetadata from '@/data/siteMetadata';
+import { PostFrontMatter } from 'types/PostFrontMatter';
+import { useTheme } from 'next-themes';
+import ReactCommento from './commento/ReactCommento';
 
 interface Props {
-  frontMatter: PostFrontMatter
+  frontMatter: PostFrontMatter;
 }
 
 const Commento = ({ frontMatter }: Props) => {
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme();
   const commentsTheme = useMemo(() => {
     switch (resolvedTheme) {
       case 'light':
       case 'dark':
-        return resolvedTheme
+        return resolvedTheme;
       default:
-        return 'auto'
+        return 'auto';
     }
-  }, [resolvedTheme])
+  }, [resolvedTheme]);
   return (
     <div className="my-2">
-      <ReactCommento url={siteMetadata.comment.commentoConfig.url} pageId={frontMatter.slug} />
+      <ReactCommento
+        url={siteMetadata.comment.commentoConfig.url}
+        pageId={frontMatter.slug}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Commento
+export default Commento;

@@ -1,8 +1,8 @@
-import { createRef } from 'preact'
-import React, { useLayoutEffect, useMemo, useRef } from 'react'
+import { createRef } from 'preact';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
 
 interface DataAttributes {
-  [key: string]: string | boolean | undefined
+  [key: string]: string | boolean | undefined;
 }
 
 const insertScript = (
@@ -11,28 +11,28 @@ const insertScript = (
   dataAttributes: DataAttributes,
   onload = () => {}
 ) => {
-  const script = window.document.createElement('script')
-  script.async = true
-  script.src = src
-  script.id = id
+  const script = window.document.createElement('script');
+  script.async = true;
+  script.src = src;
+  script.id = id;
   if (document.getElementById(id)) {
-    return
+    return;
   }
-  script.addEventListener('load', onload, { capture: true, once: true })
+  script.addEventListener('load', onload, { capture: true, once: true });
 
   Object.entries(dataAttributes).forEach(([key, value]) => {
     if (value === undefined) {
-      return
+      return;
     }
-    script.setAttribute(`data-${key}`, value.toString())
-  })
+    script.setAttribute(`data-${key}`, value.toString());
+  });
 
-  document.body.appendChild(script)
+  document.body.appendChild(script);
 
   return () => {
-    script.remove()
-  }
-}
+    script.remove();
+  };
+};
 
 const ReactCommento = ({
   url,
@@ -42,22 +42,25 @@ const ReactCommento = ({
   hideDeleted,
   pageId,
 }: {
-  url: string
-  cssOverride?: string
-  autoInit?: boolean
-  noFonts?: boolean
-  hideDeleted?: boolean
-  pageId?: string
+  url: string;
+  cssOverride?: string;
+  autoInit?: boolean;
+  noFonts?: boolean;
+  hideDeleted?: boolean;
+  pageId?: string;
 }) => {
-  const containerId = useMemo(() => `commento-${Math.random().toString().slice(2, 8)}`, [])
-  const container = createRef<HTMLDivElement>()
+  const containerId = useMemo(
+    () => `commento-${Math.random().toString().slice(2, 8)}`,
+    []
+  );
+  const container = createRef<HTMLDivElement>();
 
   useLayoutEffect(() => {
     if (!window) {
-      return
+      return;
     }
 
-    window['commento'] = container.current
+    window['commento'] = container.current;
 
     const removeScript = insertScript(
       url,
@@ -71,11 +74,20 @@ const ReactCommento = ({
         'id-root': containerId,
       },
       () => {
-        removeScript()
+        removeScript();
       }
-    )
-  }, [autoInit, cssOverride, hideDeleted, noFonts, pageId, url, containerId, container])
+    );
+  }, [
+    autoInit,
+    cssOverride,
+    hideDeleted,
+    noFonts,
+    pageId,
+    url,
+    containerId,
+    container,
+  ]);
 
-  return <div ref={container} id={containerId} />
-}
-export default ReactCommento
+  return <div ref={container} id={containerId} />;
+};
+export default ReactCommento;

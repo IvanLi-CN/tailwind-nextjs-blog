@@ -1,23 +1,28 @@
-import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
-import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
-import siteMetadata from '@/data/siteMetadata'
-import formatDate from '@/lib/utils/formatDate'
-import Comments from '@/components/comments'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import { ReactNode } from 'react'
-import { PostFrontMatter } from 'types/PostFrontMatter'
+import Link from '@/components/Link';
+import PageTitle from '@/components/PageTitle';
+import SectionContainer from '@/components/SectionContainer';
+import { BlogSEO } from '@/components/SEO';
+import siteMetadata from '@/data/siteMetadata';
+import formatDate from '@/lib/utils/formatDate';
+import Comments from '@/components/comments';
+import ScrollTopAndComment from '@/components/ScrollTopAndComment';
+import { ReactNode } from 'react';
+import { PostFrontMatter } from 'types/PostFrontMatter';
 
 interface Props {
-  frontMatter: PostFrontMatter
-  children: ReactNode
-  next?: { slug: string; title: string }
-  prev?: { slug: string; title: string }
+  frontMatter: PostFrontMatter;
+  children: ReactNode;
+  next?: { slug: string; title: string };
+  prev?: { slug: string; title: string };
 }
 
-export default function PostLayout({ frontMatter, next, prev, children }: Props) {
-  const { slug, date, title } = frontMatter
+export default function PostLayout({
+  frontMatter,
+  next,
+  prev,
+  children,
+}: Props) {
+  const { slug, date, title } = frontMatter;
 
   return (
     <SectionContainer>
@@ -42,10 +47,11 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
           </header>
           <div
             className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0 "
-            style={{ gridTemplateRows: 'auto 1fr' }}
-          >
+            style={{ gridTemplateRows: 'auto 1fr' }}>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
+              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+                {children}
+              </div>
             </div>
             <Comments frontMatter={frontMatter} />
             <footer>
@@ -54,8 +60,7 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/blog/${prev.slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
+                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                       &larr; {prev.title}
                     </Link>
                   </div>
@@ -64,8 +69,7 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
                   <div className="pt-4 xl:pt-8">
                     <Link
                       href={`/blog/${next.slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
+                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                       {next.title} &rarr;
                     </Link>
                   </div>
@@ -76,5 +80,5 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
         </div>
       </article>
     </SectionContainer>
-  )
+  );
 }

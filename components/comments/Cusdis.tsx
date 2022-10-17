@@ -1,25 +1,25 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react';
 
-import siteMetadata from '@/data/siteMetadata'
-import { PostFrontMatter } from 'types/PostFrontMatter'
-import { ReactCusdis } from 'react-cusdis'
-import { useTheme } from 'next-themes'
+import siteMetadata from '@/data/siteMetadata';
+import { PostFrontMatter } from 'types/PostFrontMatter';
+import { ReactCusdis } from 'react-cusdis';
+import { useTheme } from 'next-themes';
 
 interface Props {
-  frontMatter: PostFrontMatter
+  frontMatter: PostFrontMatter;
 }
 
 const Cusdis = ({ frontMatter }: Props) => {
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme();
   const commentsTheme = useMemo(() => {
     switch (resolvedTheme) {
       case 'light':
       case 'dark':
-        return resolvedTheme
+        return resolvedTheme;
       default:
-        return 'auto'
+        return 'auto';
     }
-  }, [resolvedTheme])
+  }, [resolvedTheme]);
   return (
     <div className="my-2">
       <ReactCusdis
@@ -35,7 +35,7 @@ const Cusdis = ({ frontMatter }: Props) => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Cusdis
+export default Cusdis;

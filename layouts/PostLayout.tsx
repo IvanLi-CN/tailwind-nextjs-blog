@@ -1,27 +1,27 @@
-import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
-import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
-import Image from '@/components/Image'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import Comments from '@/components/comments'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import { ReactNode, useMemo } from 'react'
-import { PostFrontMatter } from 'types/PostFrontMatter'
-import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
+import Link from '@/components/Link';
+import PageTitle from '@/components/PageTitle';
+import SectionContainer from '@/components/SectionContainer';
+import { BlogSEO } from '@/components/SEO';
+import Image from '@/components/Image';
+import Tag from '@/components/Tag';
+import siteMetadata from '@/data/siteMetadata';
+import Comments from '@/components/comments';
+import ScrollTopAndComment from '@/components/ScrollTopAndComment';
+import { ReactNode, useMemo } from 'react';
+import { PostFrontMatter } from 'types/PostFrontMatter';
+import { AuthorFrontMatter } from 'types/AuthorFrontMatter';
 
-const editUrl = (fileName) => `${siteMetadata.siteRepo}/raw/master/data/blog/${fileName}`
+const editUrl = (fileName) =>
+  `${siteMetadata.siteRepo}/raw/master/data/blog/${fileName}`;
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
     `${siteMetadata.siteUrl}/blog/${slug}`
-  )}`
+  )}`;
 const Copyright = () => (
   <a
     rel="license"
     href="http://creativecommons.org/licenses/by-sa/4.0/"
-    className="inline-flex self-center"
-  >
+    className="inline-flex self-center">
     <Image
       className="border-0"
       alt="知识共享许可协议"
@@ -30,25 +30,31 @@ const Copyright = () => (
       src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png"
     />
   </a>
-)
+);
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-}
+};
 
 interface Props {
-  frontMatter: PostFrontMatter
-  authorDetails: AuthorFrontMatter[]
-  next?: { slug: string; title: string }
-  prev?: { slug: string; title: string }
-  children: ReactNode
+  frontMatter: PostFrontMatter;
+  authorDetails: AuthorFrontMatter[];
+  next?: { slug: string; title: string };
+  prev?: { slug: string; title: string };
+  children: ReactNode;
 }
 
-export default function PostLayout({ frontMatter, authorDetails, next, prev, children }: Props) {
-  const { slug, fileName, date, title, images, tags } = frontMatter
+export default function PostLayout({
+  frontMatter,
+  authorDetails,
+  next,
+  prev,
+  children,
+}: Props) {
+  const { slug, fileName, date, title, images, tags } = frontMatter;
 
   const headerStyles = useMemo(
     () =>
@@ -58,7 +64,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
           }
         : {},
     [images]
-  )
+  );
 
   return (
     <SectionContainer>
@@ -87,7 +93,10 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                      {new Date(date).toLocaleDateString(
+                        siteMetadata.locale,
+                        postDateTemplate
+                      )}
                     </time>
                   </dd>
                 </div>
@@ -99,14 +108,15 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
           </header>
           <div
             className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
-            style={{ gridTemplateRows: 'auto 1fr' }}
-          >
+            style={{ gridTemplateRows: 'auto 1fr' }}>
             <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
                   {authorDetails.map((author) => (
-                    <li className="flex items-center space-x-2" key={author.name}>
+                    <li
+                      className="flex items-center space-x-2"
+                      key={author.name}>
                       {author.avatar && (
                         <Image
                           src={author.avatar}
@@ -118,15 +128,19 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       )}
                       <dl className="whitespace-nowrap text-sm font-medium leading-5">
                         <dt className="sr-only">Name</dt>
-                        <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
+                        <dd className="text-gray-900 dark:text-gray-100">
+                          {author.name}
+                        </dd>
                         <dt className="sr-only">Twitter</dt>
                         <dd>
                           {author.twitter && (
                             <Link
                               href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter.replace('https://twitter.com/', '@')}
+                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                              {author.twitter.replace(
+                                'https://twitter.com/',
+                                '@'
+                              )}
                             </Link>
                           )}
                         </dd>
@@ -137,7 +151,9 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
+              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+                {children}
+              </div>
               <div className="flex items-center gap-4 pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
                 <Copyright />
                 <Link href={editUrl(fileName)}>{'View source'}</Link>
@@ -186,8 +202,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               <div className="pt-4 xl:pt-8">
                 <Link
                   href="/blog"
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                >
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                   &larr; Back to the blog
                 </Link>
               </div>
@@ -196,5 +211,5 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
         </div>
       </article>
     </SectionContainer>
-  )
+  );
 }
