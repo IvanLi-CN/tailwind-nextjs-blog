@@ -1,10 +1,13 @@
 ---
 title: 安装并配置 Arch Linux
 date: '2022-10-17'
-tags: ['Arch Linux', '环境搭建‘, 'VPS']
+tags: ['Arch Linux', '环境搭建', 'VPS']
 draft: false
 summary: 又到了新装 Arch Linux 的日子了。这次又是温故而知新的机会，把之前写的笔记稍微整理了一下，在这里记录下教徒搭窝的备忘录。
-images: ['https://pan.ivanli.cc/api/v3/file/source/2238/archlinux-logo-light.png?sign=bWxqFFy3RUDT5UsWb4UD5byt-_L4h79wede3runRKFc%3D%3A0']
+images:
+  [
+    'https://pan.ivanli.cc/api/v3/file/source/2238/archlinux-logo-light.png?sign=bWxqFFy3RUDT5UsWb4UD5byt-_L4h79wede3runRKFc%3D%3A0',
+  ]
 ---
 
 ## 起势
