@@ -57,7 +57,7 @@ ssh-keygen -R '[20.20.20.20]:20000'
 设置主机名：
 
 ```bash
-sudo hostnamectl set-hostname arch.example.com
+hostnamectl set-hostname arch.example.com
 ```
 
 启用 pacman 并行下载：
@@ -163,6 +163,24 @@ setopt INC_APPEND_HISTORY_TIME
 
 详细配置参考：[Better zsh history | SoberKoder](https://www.soberkoder.com/better-zsh-history/)
 文档：[zsh: 16 Options](https://zsh.sourceforge.io/Doc/Release/Options.html)
+
+然后进入到 `zsh` 中，执行一次 `source ~/.zshrc`：
+
+```shell
+zsh
+
+source ~/.zshrc
+```
+
+设置 Zsh 为默认的 shell 程序：
+
+```bash
+# 列出所有已安装的 shell 程序
+chsh -l
+# 从上面的结果中找到 zsh 的完整路径
+# 我的是 /bin/zsh
+chsh -s /bin/zsh
+```
 
 ### Docker
 
