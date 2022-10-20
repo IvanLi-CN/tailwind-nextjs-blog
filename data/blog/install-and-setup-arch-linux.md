@@ -145,9 +145,12 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k' >> ~/.zshrc
 避免优先匹配到子目录，在 `.zshrc` 中添加如下行：
 
 ```zsh
+cat >> ~/.zshrc <<EOF
+
 # zsh-z
 ZSHZ_UNCOMMON=1
 ZSHZ_TRAILING_SLASH=1
+EOF
 ```
 
 #### History
@@ -155,10 +158,14 @@ ZSHZ_TRAILING_SLASH=1
 配置历史记录，在 `.zshrc` 中添加如下行：
 
 ```zsh
+cat >> ~/.zshrc <<EOF
+
+# History
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000
 setopt INC_APPEND_HISTORY_TIME
+EOF
 ```
 
 详细配置参考：[Better zsh history | SoberKoder](https://www.soberkoder.com/better-zsh-history/)
