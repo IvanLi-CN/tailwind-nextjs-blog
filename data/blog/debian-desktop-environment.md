@@ -59,14 +59,15 @@ systemctl set-default graphical.target
 
 ## 中文输入法
 
-我使用小鹤音形，所以执行以下命令：
+我使用 iBus + Rime + 小鹤音形.
+执行以下命令安装 iBus + Rime：
 
 ```bash
 sudo apt install ibus ibus-rime
 ```
 
+接下来配置小鹤音形方案。
 访问[小鹤的网盘](http://flypy.ysepan.com/)下载小鹤音形的挂接文件，小狼毫、鼠须管的都可以。
-
 下载完成后解压出来，把压缩文件里的 `rime` 目录复制到 `/home/ivan/.config/ibus/rime`：
 
 ```bash
@@ -79,7 +80,18 @@ cd '小鹤音形Rime平台鼠须管for macOS'
 cp -r ./rime ~/.config/ibus/rime
 ```
 
-配置环境变量：
+创建 `~/.config/ibus/rime/default.custom.yaml` 文件，并设为以下内容：
+
+```yaml
+patch:
+  schema_list:
+    - {schema: flypy}
+    - {schema: luna_pinyin}
+```
+
+参考：[分享我的输入法配置 （Rime 小狼豪 + 小鹤音形） - 炒饭之道](https://itx.ink/2018/11/21/SHARE_MY_RIME/)
+
+配置 iBus 环境变量：
 
 ```bash
 cat >> ~/.zshrc <<EOF
@@ -103,4 +115,19 @@ ibus-setup
 
 现在，新打开的软件应该能使用输入法了。像 Chrome 这类，关闭后还需要手动杀死进程后再打开才能使用。最简单的方法就是重启电脑啦~
 
+## 快捷键
+
+我习惯使用 Mac OS 系统的快捷键，所以 [Kinto](https://github.com/rbreaves/kinto) 是我的不二之选。
+
+安装：
+
+```bash
+/bin/bash -c "$(wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh)"
+```
+
+卸载：
+
+```bash
+/bin/bash <( wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh ) -r
+```
 
