@@ -4,6 +4,7 @@ date: '2022-10-28'
 tags: ['PVE', 'PVE', 'DE', '环境搭建', 'Debian']
 draft: false
 summary: 虽然 PVE 宿主机不应该安装乱七八糟的东西，但是我穷，为了物尽其用，为了在主力电脑翻车时有一个立即可用的备用环境，所以还是安装了基础的桌面环境。现在的 Linux 桌面环境越来越好了，我选择安装 KDE Plasma 作为桌面环境，并且默认关闭，按需启用。
+images: ['https://pan.ivanli.cc/api/v3/file/source/2242/debian-kde-wallpaper.svg?sign=tOqHcSyCzwv8xfB7_5Anj_yGPy-3oOoiczHajgSqooE%3D%3A0']
 ---
 
 ## 准备
