@@ -10,6 +10,14 @@ images:
   ]
 ---
 
+## 前言
+
+过几天就是双十一了，或许是我去购物网站上看了下显卡价格吧，我的显卡当晚就闹情绪，不工作还引发宕机。虽然拔了显卡，我还能用核显开机，但是我懒呀，所以我花了一个晚上在 PVE 宿主机上搭了一个临时环境，用于日常娱乐（看番、听歌）和一般工作（敲代码）。还别说，我在一开始装 PVE 时，就预先装上了桌面环境，这就是预判呀！
+
+现在 Linux 桌面环境已经非常好了，相比 17 年左右的体验，又上了一个新的台阶。不过，作为临时应急环境，倒也不会去装那些没啥用的国产软件，本着够用就好的原则，主要是以 Web App > Web > Linux Client 的顺序挑选软件。一般来说，我用到的也不多：
+
+- **浏览器：Google Chrome**。主要是好用，能同步，还能远程桌面。
+
 ## 准备
 
 首先应该拥有自己的账户，否则你将会发现自己无法登录桌面环境。因为桌面环境默认在登录时没有 `root` 用户选项。
@@ -73,6 +81,30 @@ systemctl set-default multi-user.target
 ```bash
 systemctl set-default graphical.target
 ```
+
+## Google Chrome Browser
+
+安装方式就是直接[官网下载](https://www.google.com/chrome/)。下载完成后双击打开安装。
+
+或者通过命令行安装：
+
+```bash
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sudo apt install ./google-chrome-stable_current_amd64.deb
+```
+
+安装过程中可能会出错，可以使用命令进行安装，然后根据提示修复问题。修复过程中可能会重启电脑。具体情况我没留意，下次遇到的话再补充，嘿嘿。
+
+## VS Code
+
+同样从官网下载安装：[Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/download)
+
+### 同步问题
+
+参考：[Visual Studio Code 中的设置同步](https://code.visualstudio.com/docs/editor/settings-sync#_linux)
+
+我用的是 KDE Plasma，似乎[再等等](https://github.com/microsoft/vscode/issues/104319#issuecomment-1250089491)就能直接正常使用了，所以我先忍受同步问题吧。
 
 ## 中文输入法
 
