@@ -4,7 +4,10 @@ date: '2022-10-28'
 tags: ['PVE', 'PVE', 'DE', '环境搭建', 'Debian']
 draft: false
 summary: 虽然 PVE 宿主机不应该安装乱七八糟的东西，但是我穷，为了物尽其用，为了在主力电脑翻车时有一个立即可用的备用环境，所以还是安装了基础的桌面环境。现在的 Linux 桌面环境越来越好了，我选择安装 KDE Plasma 作为桌面环境，并且默认关闭，按需启用。
-images: ['https://pan.ivanli.cc/api/v3/file/source/2243/1200px-Kde_dragons.png?sign=yGZL9jYeVt53Ve43ddhHt_0EzVV2cW_WbxHc0dEcwWY%3D%3A0']
+images:
+  [
+    'https://pan.ivanli.cc/api/v3/file/source/2243/1200px-Kde_dragons.png?sign=yGZL9jYeVt53Ve43ddhHt_0EzVV2cW_WbxHc0dEcwWY%3D%3A0',
+  ]
 ---
 
 ## 准备
@@ -13,13 +16,19 @@ images: ['https://pan.ivanli.cc/api/v3/file/source/2243/1200px-Kde_dragons.png?s
 
 ### 创建账户：
 
+```bash
 useradd -m ivan
 passwd ivan
 usermod -aG wheel ivan
+```
+
 给刚刚创建的账户分配一个具有 sudo 权限的账户
 
+```bash
 EDITOR=vim visudo
-找到 %wheel ALL=(ALL: ALL) ALL 这行，取消这行的注释。
+```
+
+找到 `%wheel ALL=(ALL: ALL) ALL` 这行，取消这行的注释。
 
 现在，你自己的账号具有 sudo 权限了。
 
@@ -93,8 +102,8 @@ cp -r ./rime ~/.config/ibus/rime
 ```yaml
 patch:
   schema_list:
-    - {schema: flypy}
-    - {schema: luna_pinyin}
+    - { schema: flypy }
+    - { schema: luna_pinyin }
 ```
 
 参考：[分享我的输入法配置 （Rime 小狼豪 + 小鹤音形） - 炒饭之道](https://itx.ink/2018/11/21/SHARE_MY_RIME/)
@@ -125,7 +134,7 @@ ibus-setup
 
 ## 快捷键
 
-我习惯使用 Mac OS 系统的快捷键，所以 [Kinto](https://github.com/rbreaves/kinto) 是我的不二之选。
+我习惯使用 Mac OS 系统的快捷键，所以 [Kinto](https://github.com/rbreaves/kinto) 是我的不二之选。key
 
 安装：
 
@@ -138,4 +147,3 @@ ibus-setup
 ```bash
 /bin/bash <( wget -qO- https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh || curl -fsSL https://raw.githubusercontent.com/rbreaves/kinto/HEAD/install/linux.sh ) -r
 ```
-
