@@ -50,5 +50,5 @@
     "git-lfs": "latest"
   },
   "mounts": [],
-  "postStartCommand": "npm ci && npm run dev"
+  "postStartCommand": "pnpm install && npm run dev"
 }
