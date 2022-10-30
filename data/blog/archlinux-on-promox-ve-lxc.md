@@ -22,6 +22,11 @@ Arch Linux 准入门槛确实有点高，在 PVE 中，使用 LCX 容器运行 A
 
 位置(Location)
 先编辑 `/etc/locale.gen`，取消 `en_US.UTF-8 UTF-8` 的注释。
+
+```bash
+sed -i "s/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/" /etc/locale.gen
+```
+
 然后执行：
 
 ```bash
@@ -69,10 +74,17 @@ nano /etc/pacman.d/mirrorlist
 ```
 
 选择你喜欢并且方便连接的镜像，然后删除该行的“#”取消注释。可以选择一个或多个，在前面的优先级高。
+
+开启并行下载，在 `/etc/pacman.conf` 中取消 `ParallelDownloads` 前的注释，值为并行下载数：
+
+```bash
+sed -i "s/#ParallelDownloads = 5/ParallelDownloads = 5/" /etc/pacman.conf
+```
+
 接下来我们更新已安装的软件，我们的哲学就是时刻保持最新。
 
 ```bash
-  pacman -Syu
+pacman -Syu
 ```
 
 **一般来说，执行上面的命令后，会拉取索引数据库，之后会优先更新 `archlinuxx-keyring`。如果不是这样的话，应当手动执行下面的代码：**
@@ -98,6 +110,12 @@ _参考：[Cant Upgrade because of keyring - Technical Issues and Assistance / P
 
 ### 3. 创建用户
 
+首先，安装 `sudo`：
+
+```bash
+pacman -S sudo
+```
+
 让我们给自己分配一个具有 sudo 权限的账户
 
 ```zsh
@@ -111,12 +129,6 @@ _参考：[Create a Sudo User on Arch Linux - Vultr.com](https://www.vultr.com/d
 
 ```zsh
 EDITOR=vim visudo
-```
-
-安装 `sudo`：
-
-```bash
-pacman -S sudo
 ```
 
 接下来使用刚刚创建的用户登录吧！
