@@ -31,7 +31,15 @@ chmod +x vps2arch
 ./vps2arch
 ```
 
-等待几分钟就完成了。如果是中国大陆境内的机子，建议全局代理或使用自定义的系统镜像源。可以从[这个网站](https://archlinux.org/mirrorlist/?country=HK&protocol=https&use_mirror_status=on)获取镜像地址。地址上有查询参数，可以根据自己需要修改。
+等待几分钟就完成了。如果是中国大陆境内的机子，建议全局代理或使用自定义的系统镜像源。可以从下面的网站获取镜像地址。地址上有查询参数，可以根据自己需要修改。
+
+> [https://archlinux.org/mirrorlist/?country=HK&protocol=https&use_mirror_status=on](https://archlinux.org/mirrorlist/?country=HK&protocol=https&use_mirror_status=on)
+
+推荐使用 `https://hkg.mirror.rackspace.com/archlinux/`：
+
+```bash
+./vps2arch -m 'https://hkg.mirror.rackspace.com/archlinux/'
+```
 
 如果系统装不上，可以在 IDC 面板上重装其他系统后再试，推荐使用 Debian。
 
@@ -64,6 +72,7 @@ hostnamectl set-hostname arch.example.com
 
 - 编辑 `/etc/pacman.conf`
 - 取消 `ParallelDownloads` 前的注释，值为并行下载数
+-
 
 ## 常用环境安装
 
