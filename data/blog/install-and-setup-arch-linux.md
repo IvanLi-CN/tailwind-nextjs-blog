@@ -72,7 +72,6 @@ hostnamectl set-hostname arch.example.com
 
 - 编辑 `/etc/pacman.conf`
 - 取消 `ParallelDownloads` 前的注释，值为并行下载数
--
 
 ## 常用环境安装
 

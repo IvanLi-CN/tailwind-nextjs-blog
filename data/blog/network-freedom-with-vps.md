@@ -1,8 +1,19 @@
 ---
 title: 利用一台小鸡实现网络自由
 date: '2022-10-06'
-tags: ['SNI', 'TLS', 'Reverse Proxy', '反向代理', '正向代理', ‘内网穿透', 'Caddy', 'Xray', 'Vless']
-draft: false
+tags:
+  [
+    'SNI',
+    'TLS',
+    'Reverse Proxy',
+    '反向代理',
+    '正向代理',
+    ‘内网穿透',
+    'Caddy',
+    'Xray',
+    'Vless',
+  ]
+draft: true
 summary: SNI Proxy 进行 TLS 分流；Caddy 对网站和 Xray 进行反向代理；Xray 实现正向、反向代理（内网穿透）。
 ---
 
