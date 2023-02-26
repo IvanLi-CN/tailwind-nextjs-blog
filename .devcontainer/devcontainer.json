@@ -47,7 +47,8 @@
   "remoteUser": "node",
   "features": {
     "git": "os-provided",
-    "git-lfs": "latest"
+    "git-lfs": "latest",
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "mounts": [],
   "postStartCommand": "pnpm install && npm run dev"

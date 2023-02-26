@@ -124,7 +124,7 @@ depends_on:
   - linux-amd64
 
 steps:
-  - name: deploy
+  - name: watchtower-online
     image: plugins/webhook
     settings:
       token_value:
@@ -164,6 +164,74 @@ steps:
         🌐 {{ build.link }}
         {{else}}
         ❌ Deploy #{{build.number}} of `{{repo.name}}` failed.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 {{ build.link }}
+        {{/success}}
+
+
+---
+kind: pipeline
+type: docker
+name: deploy-to-zzidc
+clone:
+  disable: true
+depends_on:
+  - linux-amd64
+
+steps:
+  - name: export
+      image: plugins/docker
+      settings:
+        registry: docker-registry.ivanli.cc
+        username:
+          from_secret: ivan-docker-username
+        password:
+          from_secret: ivan-docker-password
+        repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload
+        dockerfile: Dockerfile
+        target: upload
+        cache_from:
+          - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_BRANCH}${DRONE_TAG}-amd64
+        tags:
+          - '${DRONE_COMMIT_SHA:0:8}'
+          - '${DRONE_BRANCH}${DRONE_TAG}'
+  - name: upload
+      image: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
+      environment:
+        FTP_ACCOUNT:
+          from_secret: zzidc_ftp_account
+        FTP_PASSWORD:
+          from_secret: zzidc_ftp_password
+        FTP_HOST:
+          from_secret: zzidc_ftp_host
+  - name: notify
+    image: appleboy/drone-telegram
+    when:
+      status:
+        - success
+        - failure
+    failure: ignore
+    detach: true
+    environment:
+      PLUGIN_TOKEN:
+        from_secret: drone-telegram-bot-token
+      PLUGIN_TO:
+        from_secret: telegram-notify-to
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ✅ Deploy #{{build.number}} of `{{repo.name}}` to ZZIDC succeeded.
+        📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+        ```
+        {{commit.message}}
+        ```
+        🌐 {{ build.link }}
+        {{else}}
+        ❌ Deploy #{{build.number}} of `{{repo.name}}` to ZZIDC failed.
         📝 Commit by {{commit.author}} on `{{commit.branch}}`:
         ```
         {{commit.message}}
