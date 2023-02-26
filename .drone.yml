@@ -119,7 +119,7 @@ kind: pipeline
 type: docker
 name: deploy
 clone:
-  disable: true
+  disable: false
 depends_on:
   - linux-amd64
 
@@ -177,36 +177,48 @@ kind: pipeline
 type: docker
 name: deploy-to-zzidc
 clone:
-  disable: true
+  disable: false
 depends_on:
   - linux-amd64
 
+trigger:
+  branch:
+    - master
+    - develop
+
 steps:
   - name: export
-      image: plugins/docker
-      settings:
-        registry: docker-registry.ivanli.cc
-        username:
-          from_secret: ivan-docker-username
-        password:
-          from_secret: ivan-docker-password
-        repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload
-        dockerfile: Dockerfile
-        target: upload
-        cache_from:
-          - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_BRANCH}${DRONE_TAG}-amd64
-        tags:
-          - '${DRONE_COMMIT_SHA:0:8}'
-          - '${DRONE_BRANCH}${DRONE_TAG}'
+    image: plugins/docker
+    settings:
+      registry: docker-registry.ivanli.cc
+      username:
+        from_secret: ivan-docker-username
+      password:
+        from_secret: ivan-docker-password
+      repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload
+      dockerfile: Dockerfile
+      target: upload
+      cache_from:
+        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_BRANCH}${DRONE_TAG}-amd64
+      tags:
+        - '${DRONE_COMMIT_SHA:0:8}'
+        - '${DRONE_BRANCH}${DRONE_TAG}'
+
   - name: upload
-      image: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
-      environment:
-        FTP_ACCOUNT:
-          from_secret: zzidc_ftp_account
-        FTP_PASSWORD:
-          from_secret: zzidc_ftp_password
-        FTP_HOST:
-          from_secret: zzidc_ftp_host
+    image: docker:dind
+    volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
+    commands:
+      - docker run --rm -it -e FTP_ACCOUNT=${FTP_ACCOUNT} -e FTP_PASSWORD=${FTP_PASSWORD} -e FTP_HOST=${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
+    environment:
+      FTP_ACCOUNT:
+        from_secret: zzidc_ftp_account
+      FTP_PASSWORD:
+        from_secret: zzidc_ftp_password
+      FTP_HOST:
+        from_secret: zzidc_ftp_host
+
   - name: notify
     image: appleboy/drone-telegram
     when:
@@ -238,3 +250,4 @@ steps:
         ```
         🌐 {{ build.link }}
         {{/success}}
+
