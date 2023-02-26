@@ -14,10 +14,13 @@ COPY . .
 COPY --from=deps /app ./
 RUN pnpm build
 
+FROM build as pre-release
+WORKDIR /app
+RUN pnpm prune --prod --config.ignore-scripts=true
+
 FROM node:16-alpine as release
 WORKDIR /app
-COPY --from=build /app ./
-RUN pnpm prune --prod --config.ignore-scripts=true
+COPY --from=pre-release /app ./
 EXPOSE 80
 CMD npm run serve -- -p 80
 
