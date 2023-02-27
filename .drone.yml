@@ -199,7 +199,7 @@ steps:
       dockerfile: Dockerfile
       target: upload
       cache_from:
-        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_BRANCH}${DRONE_TAG}-amd64
+        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64
       tags:
         - '${DRONE_COMMIT_SHA:0:8}'
         - '${DRONE_BRANCH}${DRONE_TAG}'
