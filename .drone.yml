@@ -251,3 +251,14 @@ steps:
         🌐 {{ build.link }}
         {{/success}}
 
+services:
+  - name: docker
+    image: docker:dind
+    privileged: true
+    volumes:
+    - name: dockersock
+      path: /var/run
+
+  volumes:
+  - name: dockersock
+    temp: {}
