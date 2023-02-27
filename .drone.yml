@@ -210,7 +210,7 @@ steps:
     - name: dockersock
       path: /var/run/docker.sock
     commands:
-      - docker run --rm -it -e FTP_ACCOUNT=${FTP_ACCOUNT} -e FTP_PASSWORD=${FTP_PASSWORD} -e FTP_HOST=${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
+      - docker run --rm -t -e FTP_ACCOUNT=${FTP_ACCOUNT} -e FTP_PASSWORD=${FTP_PASSWORD} -e FTP_HOST=${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
     environment:
       FTP_ACCOUNT:
         from_secret: zzidc_ftp_account
