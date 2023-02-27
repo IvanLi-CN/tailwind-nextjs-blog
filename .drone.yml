@@ -259,6 +259,6 @@ services:
       - name: dockersock
         path: /var/run
 
-  volumes:
-    - name: dockersock
-      temp: {}
+volumes:
+  - name: dockersock
+    temp: {}
