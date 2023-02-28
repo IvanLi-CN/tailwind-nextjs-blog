@@ -187,29 +187,13 @@ trigger:
     - develop
 
 steps:
-  - name: export
-    image: plugins/docker
-    settings:
-      registry: docker-registry.ivanli.cc
-      username:
-        from_secret: ivan-docker-username
-      password:
-        from_secret: ivan-docker-password
-      repo: docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload
-      dockerfile: Dockerfile
-      target: upload
-      cache_from:
-        - docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64
-      tags:
-        - '${DRONE_COMMIT_SHA:0:8}'
-        - '${DRONE_BRANCH}${DRONE_TAG}'
-
   - name: upload
     image: docker:dind
     volumes:
     - name: dockersock
-      path: /var/run/docker.sock
+      path: /var/run
     commands:
+      - docker build -t docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8} .
       - docker run --rm -t -e FTP_ACCOUNT=${FTP_ACCOUNT} -e FTP_PASSWORD=${FTP_PASSWORD} -e FTP_HOST=${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
     environment:
       FTP_ACCOUNT:
@@ -251,14 +235,3 @@ steps:
         🌐 {{ build.link }}
         {{/success}}
 
-services:
-  - name: docker
-    image: docker:dind
-    privileged: true
-    volumes:
-      - name: dockersock
-        path: /var/run
-
-volumes:
-  - name: dockersock
-    temp: {}
