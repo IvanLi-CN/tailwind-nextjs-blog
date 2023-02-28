@@ -193,9 +193,8 @@ steps:
     - name: dockersock
       path: /var/run/docker.sock
     commands:
-      - 'echo "account: $FTP_ACCOUNT"'
       - docker build --pull=true -t docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8} --cache-from docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64 .
-      - docker run --rm -t -e FTP_ACCOUNT=${FTP_ACCOUNT} -e FTP_PASSWORD=${FTP_PASSWORD} -e FTP_HOST=${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
+      - docker run --rm -t -e FTP_ACCOUNT=$${FTP_ACCOUNT} -e FTP_PASSWORD=$${FTP_PASSWORD} -e FTP_HOST=$${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
     environment:
       DOCKER_BUILDKIT: "1"
       FTP_ACCOUNT:
