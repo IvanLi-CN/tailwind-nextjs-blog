@@ -193,6 +193,8 @@ steps:
     - name: dockersock
       path: /var/run
     commands:
+      - ls /var/run
+      - stat /var/run/docker.sock
       - docker build -t docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8} .
       - docker run --rm -t -e FTP_ACCOUNT=${FTP_ACCOUNT} -e FTP_PASSWORD=${FTP_PASSWORD} -e FTP_HOST=${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
     environment:
@@ -245,4 +247,5 @@ services:
 
 volumes:
 - name: dockersock
-  temp: {}
+  host:
+    path: /var/run/docker.sock
