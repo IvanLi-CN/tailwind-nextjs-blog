@@ -32,4 +32,4 @@ FROM alpine:latest as upload
 RUN apk add lftp
 WORKDIR /app
 COPY --from=export /app/out ./
-CMD lftp -u "${FTP_ACCOUNT},${FTP_PASSWORD}" "${FTP_HOST}" -e 'set ftp:ssl-allow off && set use-feat no && mirror -R . ./WEB && exit'
+CMD lftp -u "${FTP_ACCOUNT},${FTP_PASSWORD}" "${FTP_HOST}" -e 'set ftp:ssl-allow off && set use-feat no && mirror -c -R --use-pget-n=10 . ./WEB && exit'
