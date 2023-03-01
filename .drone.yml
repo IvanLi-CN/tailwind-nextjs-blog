@@ -193,7 +193,7 @@ steps:
     - name: dockersock
       path: /var/run/docker.sock
     commands:
-      - docker pull docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8} --cache-from docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64
+      - docker pull docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64
       - docker build --pull=true -t docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8} --cache-from docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-deps:${DRONE_BRANCH}${DRONE_TAG}-amd64 .
       - docker run --rm -t -e FTP_ACCOUNT=$${FTP_ACCOUNT} -e FTP_PASSWORD=$${FTP_PASSWORD} -e FTP_HOST=$${FTP_HOST} docker-registry.ivanli.cc/ivan/tailwind-nextjs-blog-upload:${DRONE_COMMIT_SHA:0:8}
     environment:
