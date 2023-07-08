@@ -8,10 +8,8 @@ const siteMetadata = {
   theme: 'system', // system, dark or light
   siteUrl: 'https://ivanli.cc/',
   siteRepo: 'https://git.ivanli.cc/ivan/tailwind-nextjs-blog',
-  siteLogo:
-    'https://pan.ivanli.cc/api/v3/file/source/1234/%E5%A4%B4%E5%83%8F.png?sign=xIgy54DyFRYupxjZJbK02HmpKX8C53YR-O0I18Rxm70%3D%3A0',
-  image:
-    'https://pan.ivanli.cc/api/v3/file/source/1234/%E5%A4%B4%E5%83%8F.png?sign=xIgy54DyFRYupxjZJbK02HmpKX8C53YR-O0I18Rxm70%3D%3A0',
+  siteLogo: 'https://minio.ivanli.cc/ivan-public/uPic/2023/Urpetm.png',
+  image: 'https://minio.ivanli.cc/ivan-public/uPic/2023/Urpetm.png',
   socialBanner: '/static/images/twitter-card.png',
   email: 'master@ivanli.cc',
   github: 'https://github.com/IvanLi-CN',
@@ -86,6 +84,6 @@ const siteMetadata = {
       url: process.env.NEXT_PUBLIC_COMMENTO_URL,
     },
   },
-}
+};
 
-module.exports = siteMetadata
+module.exports = siteMetadata;

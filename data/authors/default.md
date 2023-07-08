@@ -1,6 +1,6 @@
 ---
 name: Ivan Li
-avatar: https://pan.ivanli.cc/api/v3/file/source/1234/头像.png?sign=xIgy54DyFRYupxjZJbK02HmpKX8C53YR-O0I18Rxm70%3D%3A0
+avatar: https://minio.ivanli.cc/ivan-public/uPic/2023/Urpetm.png
 occupation: Web Full Stack Developer
 email: master@ivanli.cc
 github: https://github.com/IvanLi-CN
