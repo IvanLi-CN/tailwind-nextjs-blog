@@ -1,9 +1,9 @@
 ---
-title: 使用 Github Action 为其他项目构建 Docker Image
+title: 使用 Github Actions 为其他项目构建 Docker Image
 date: '2023-07-09'
-tags: ['Github Action', 'CI/CD', 'Docker']
+tags: ['Github Actions', 'CI/CD', 'Docker']
 draft: false
-summary: 使用 Github Action，为自己喜爱的 Github 开源项目，快速、独立、自动化地构建 Docker 镜像，并推送到 ghcr (GitHub Container Registry)。
+summary: 使用 Github Actions，为自己喜爱的 Github 开源项目，快速、独立、自动化地构建 Docker 镜像，并推送到 ghcr (GitHub Container Registry)。
 images: ['https://minio.ivanli.cc/ivan-public/uPic/2023/DZhPx7.jpg']
 ---
 
@@ -13,7 +13,7 @@ images: ['https://minio.ivanli.cc/ivan-public/uPic/2023/DZhPx7.jpg']
 
 其中就包括一个 qBittorrent 程序，自带的 Web UI 很工具化，不是很漂亮，也不是很好用。所以我就找了第三方的，正好它没有单独的 Docker image，所以我就做个自动化构建吧。
 
-本来想在自建的 Gitea Action 运行的，不过想了想，这个丢 Github 上跑比较合适，反正源头都在 Github 上。之前也有注意到做同样事情的库，但是一直想不起来是什么项目，就没找到……那作业没得抄，只能自己写了。
+本来想在自建的 Gitea Actions 运行的，不过想了想，这个丢 Github 上跑比较合适，反正源头都在 Github 上。之前也有注意到做同样事情的库，但是一直想不起来是什么项目，就没找到……那作业没得抄，只能自己写了。
 
 对了，我选择的 qBittorrent Web UI 是 [VueTorrent](https://github.com/WDaan/VueTorrent)。
 
@@ -32,7 +32,7 @@ images: ['https://minio.ivanli.cc/ivan-public/uPic/2023/DZhPx7.jpg']
 
 ### 定时检查上游更新
 
-Github Action 支持使用 Cron 来创建一个定时任务。
+Github Actions 支持使用 Cron 来创建一个定时任务。
 所以触发 Action 的问题轻松解决。
 
 ```yaml
@@ -127,7 +127,7 @@ _这里使用了 `working-directory` 更改执行目录到子模块中，用 `cd
   if: steps.compare.outputs.should_update == 'true'
   run: |
     git diff
-    git config user.name "GitHub Actions"
+    git config user.name "GitHub Actionss"
     git config user.email "bot@noreply.github.com"
     git add .
     git commit -m "Update to ${{ steps.git-get-release.outputs.tag_name }}"
@@ -136,7 +136,7 @@ _这里使用了 `working-directory` 更改执行目录到子模块中，用 `cd
 
 这就没什么好说的了，需要注意的一点就是权限问题。因为我们是 push 到当前的 repo 上，所以可以直接使用自动注入的 `GITHUB_TOKEN`，不过需要在 repo 的设置页面更改下权限：
 
-![Github Action Permissions Setting](https://minio.ivanli.cc/ivan-public/uPic/2023/QPvf6R.png)
+![Github Actions Permissions Setting](https://minio.ivanli.cc/ivan-public/uPic/2023/QPvf6R.png)
 
 选择 “Read and write permissions"，这样就能写入当前的 repo。
 
